@@ -1,0 +1,66 @@
+{# templates/chart_template.html.twig #}
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+    <img id="canvasImage" style="display: none;" src="{{ app.request.schemeAndHttpHost }}/api/1/business-plan/pdf/generator/">
+ 
+
+    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+    <script>
+    $(document).ready(function() {
+
+       const xValues = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];
+       const yValues = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
+
+        new Chart("myChart", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: "rgba(0, 0, 255, 1.0)",
+                    borderColor: "rgba(0, 0, 255, 0.1)",
+                    data: yValues,
+                }],
+            },
+            options: {
+                legend: { display: false },
+                scales: {
+                    yAxes: [{ ticks: { min: 6, max: 16 } }],
+                },
+            },
+        });
+      
+          
+            const canvas = document.getElementById("myChart");
+            const image = document.getElementById("canvasImage");
+         
+            $.ajax({
+                url: '/api/1/business-plan/chart-js/generator/', // Replace with your Symfony route
+                type: 'POST',
+                async: false,
+                data: {
+                    "imageData":canvas.toDataURL("image/png")
+                },
+               
+                success: function(data) {
+                    image.src = data;
+                   
+                }
+            });
+
+            //image.src =  canvas.toDataURL("image/jepg");
+            image.style.display = "block";
+            canvas.style.display = "none";
+    });
+    </script>
+</body>
+</html>
+ 

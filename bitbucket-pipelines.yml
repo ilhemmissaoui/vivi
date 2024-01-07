@@ -1,0 +1,87 @@
+image: lorisleiva/laravel-docker:8.2
+
+options:
+  docker: true
+  size: 2x
+
+clone:
+  depth: full
+
+definitions:
+  services:
+    docker:
+      memory: 4096
+  caches:
+    sonar: ~/.sonar
+  steps:
+    - step: &build-test-sonarcloud
+        name: SonarQube analysis
+        caches:
+          - sonar
+          - node
+          - composer
+        services:
+          - docker
+        script:
+          - npm install --legacy-peer-deps
+          - pipe: sonarsource/sonarqube-scan:1.1.0
+            variables:
+                SONAR_HOST_URL: ${SONAR_HOST_URL}
+                SONAR_TOKEN: ${SONAR_TOKEN}
+                SONAR_SCANNER_OPTS: -Xmx512m
+    - step: &check-quality-gate-sonarcloud
+        name: SonarQube Quality
+        services:
+          - docker
+        script:
+          - pipe: sonarsource/sonarqube-quality-gate:1.1.0
+            variables:
+                SONAR_TOKEN: ${SONAR_TOKEN}
+    - step: &build-test
+        name: Compiling
+        caches:
+          - node
+        script:
+          - npm install --legacy-peer-deps
+          - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+          - npm run build
+          - composer dump-autoload
+    - step: &deploy-forge
+        name: Deploying (Forge)
+        trigger: manual
+        script:
+          - echo "Deploying..."
+          - wget https://forge.laravel.com/servers/691921/sites/2012293/deploy/http?token=QBRbR1q39SNIYCSDi8SbNx9ITjRfshcov2lSLf6k
+    - step: &deploy-forge-preprod
+        name: Deploying Pre-prod (Forge)
+        trigger: manual
+        script:
+          - echo "Deploying preprod..."
+          - wget https://forge.laravel.com/servers/691921/sites/2029863/deploy/http?token=vk7OMwcVPMOkH4U21fvrzFeZzZORnWMNxihVYc8E
+pipelines:
+  custom:
+    deploy-to-forge:
+      - step:
+          script:
+            - echo "Manual trigger for deployment, please double check!"
+      - step: *deploy-forge
+    deploy-to-forge-preprod:
+      - step:
+          script:
+            - echo "Manual trigger for preprod deployment, please double check!"
+      - step: *deploy-forge-preprod
+  branches:
+    develop:
+      - step: *build-test-sonarcloud
+      - step: *check-quality-gate-sonarcloud
+      - step: *build-test
+      - step: *deploy-forge
+    release/pre_prod:
+      - step: *build-test-sonarcloud
+      - step: *check-quality-gate-sonarcloud
+      - step: *build-test
+      - step: *deploy-forge-preprod
+  pull-requests:
+    '**':
+      - step: *build-test-sonarcloud
+      - step: *check-quality-gate-sonarcloud

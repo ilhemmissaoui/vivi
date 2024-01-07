@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.1.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 104.4 558.1" style="enable-background:new 0 0 104.4 558.1;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#Rectangle_822_1_);}
+	.st1{fill:url(#Tracé_4059_1_);}
+</style>
+<linearGradient id="Rectangle_822_1_" gradientUnits="userSpaceOnUse" x1="53.9781" y1="-96.992" x2="52.7913" y2="685.1179">
+	<stop  offset="0.2337" style="stop-color:#F9AF15;stop-opacity:1.200000e-02"/>
+	<stop  offset="0.3672" style="stop-color:#F6A010"/>
+	<stop  offset="0.997" style="stop-color:#D35015"/>
+	<stop  offset="1" style="stop-color:#D35015"/>
+</linearGradient>
+<rect id="Rectangle_822" x="50.2" y="46.6" class="st0" width="6.3" height="466"/>
+<linearGradient id="Tracé_4059_1_" gradientUnits="userSpaceOnUse" x1="-784.5626" y1="1135.2074" x2="-784.5667" y2="1134.2163" gradientTransform="matrix(26.4 0 0 -22.872 20765.877 26477.623)">
+	<stop  offset="0" style="stop-color:#D35015"/>
+	<stop  offset="0.888" style="stop-color:#D35015"/>
+</linearGradient>
+<path id="Tracé_4059" class="st1" d="M53.4,512.7h13.2L60,524.1l-6.6,11.4l-6.6-11.4l-6.6-11.4H53.4z"/>
+</svg>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Project Invitation from Nadhem</title>
+		<style>
+			/* Reset styles for email */
+			body,
+			p {
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				font-family: Arial, sans-serif;
+				background-color: #f0f0f0;
+			}
+			.container {
+				max-width: 600px;
+				margin: 0 auto;
+				padding: 20px;
+				background-color: #ffffff;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			}
+			h1 {
+				color: #333333;
+				margin-bottom: 20px;
+			}
+			p {
+				color: #666666;
+				margin-bottom: 20px;
+			}
+			.btn {
+				display: inline-block;
+				padding: 10px 20px;
+				background-color: #007BFF;
+				color: #ffffff;
+				text-decoration: none;
+				border-radius: 4px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div><img src="{{asset('{{ app.request.getSchemeAndHttpHost() }}/logo/vivitool-logo.png')}}"></div>
+
+			<p>Bonjour
+				{{user}},</p>
+			<p>Nous sommes ravis de vous inviter à collaborer sur un projet en utilisant Vivitools, une plateforme puissante de gestion de projet et de collaboration.</p>
+
+			<p>Nous pensons que votre expertise et vos contributions seront précieuses pour la réussite de ce projet. Veuillez cliquer sur le bouton ci-dessous pour accepter l'invitation et rejoindre le projet sur Vivitools.</p>
+			<a href="{{ app.request.getSchemeAndHttpHost() }}/registration" class="btn">Créer un compte</a>
+			<p>Merci pour votre collaboration et nous avons hâte de travailler ensemble sur Vivitool!</p>
+			<p>
+				Cordialement,</p>
+			<p>L'équipe de ViviTool
+			</p>
+		</div>
+	</body>
+</html>

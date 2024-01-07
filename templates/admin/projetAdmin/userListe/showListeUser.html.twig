@@ -1,0 +1,9 @@
+{% extends '@SonataAdmin/CRUD/base_show_field.html.twig' %}
+{% block field %}
+	{% set collaborateur = object.collaborateurProjets %}
+	<div>
+        {% for item in collaborateur %}
+            <div>{{item.user.email}}</div>
+        {% endfor %}
+	</div>
+{% endblock %}

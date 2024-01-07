@@ -1,0 +1,70 @@
+{% extends '@SonataAdmin/standard_layout.html.twig' %}
+
+{% block content %}
+
+	<style>
+
+		.titre-bloc {
+			text-align: center;
+			color: #DC143C;
+			font-weight: 900;
+			font-size: 30px;
+		}
+        .cardInfo:hover{
+                color: #000;
+                cursor: pointer;
+        }
+        .cardInfo, .cardInfo .small-box-footer{
+             color: #000;
+ 
+        }
+	</style>
+	<div class="row">
+		<div class="col-lg-3 col-6 ">
+			<div class="small-box bg-primary cardInfo">
+				<div class="inner">
+					<h3>{{ numberOfclient }}</h3>
+					<p>Nombre client</p>
+				</div>
+				<div class="icon">
+					<i class="fas fa-users"></i>
+				</div>
+				<a href="/admin/app/user/list" class="small-box-footer" target="_blank">Plus d'informations
+					<i class="fas fa-arrow-circle-right"></i>
+				</a>
+			</div>
+		</div>
+
+        <div class="col-lg-3 col-6">
+			<div class="small-box bg-success cardInfo">
+				<div class="inner">
+					<h3>{{ numberOfProjets }}</h3>
+					<p>Nombre des projets</p>
+				</div>
+				<div class="icon">
+					<i class="fas fa-handshake"></i>
+				</div>
+				<a href="/admin/app/projet/list" class="small-box-footer" target="_blank">Plus d'informations
+					<i class="fas fa-arrow-circle-right"></i>
+				</a>
+			</div>
+		</div>
+
+         <div class="col-lg-3 col-6">
+			<div class="small-box bg-warning cardInfo">
+				<div class="inner">
+					<h3>{{ numberOfPartenaires }}</h3>
+					<p>Nombre des partenaires</p>
+				</div>
+				<div class="icon">
+					<i class="fas fa-tasks"></i>
+				</div>
+				<a href="/admin/app/partenaires/list" class="small-box-footer" target="_blank">Plus d'informations
+					<i class="fas fa-arrow-circle-right"></i>
+				</a>
+			</div>
+		</div>
+
+
+	</div>
+{% endblock %}

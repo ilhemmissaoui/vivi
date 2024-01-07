@@ -1,0 +1,341 @@
+{% extends '@SonataAdmin/standard_layout.html.twig' %}
+{% block content %}
+<div class="row">
+    <form method="post" action="">
+    <div class="col-lg-3">
+        <div class="input-group" data-provide="">
+            <input value="{{ start|date('d-m-Y') }}" name="start" class="form-control" style="width: 250px" id="start" width="276" />
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="input-group" data-provide="">
+            <input value="{{ end|date('d-m-Y') }}" name="end"  class="form-control" style="width: 250px" id="end" width="276" />
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <button type="submit" class="btn btn-sm btn-primary">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+    </div>
+    </form>
+</div>
+    </br>
+    <div class="row">
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-red">
+                <div class="inner">
+                    <h3>{{ numberClient }}</h3>
+                    <p>Nombre client</p>
+                </div>
+                <div class="icon">
+                    <i class="glyphicon glyphicon-user"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>{{ numberPartenaire }}</h3>
+                    <p>Nombre partenaire</p>
+                </div>
+                <div class="icon">
+                    <i class="glyphicon glyphicon-user"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>{{ numMontant['nbre'] }}</h3>
+
+                    <p>Nombre de commande</p>
+                </div>
+                <div class="icon">
+                    <i class="glyphicon glyphicon-comment"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+                <div class="inner">
+                    <h3>{{ (numMontant['total']-MontantRefused['total']) }}</h3>
+
+                    <p>montant total</p>
+                </div>
+                <div class="icon">
+                    <i class="glyphicon glyphicon-euro"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+                <div class="inner">
+                    <h3>{{ (MontantRefused['nbre']) }}</h3>
+
+                    <p>Nombre de ticket annulé</p>
+                </div>
+                <div class="icon">
+                    <i class="glyphicon glyphicon-euro"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+                <div class="inner">
+                    <h3>{{ ((numMontant['total']-MontantRefused['total'])/ (numMontant['nbre']!=0?numMontant['nbre']:1))|number_format(2, '.', ',') }}</h3>
+
+                    <p>panier moyen</p>
+                </div>
+                <div class="icon">
+                    <i class="glyphicon glyphicon-euro"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+    </div>
+
+   <div class="row"><div class="col-sm-12">
+
+   <div class="box box-primary">
+   {% if orders|length>0 %}
+       <button onclick="csvFile()" type="button" class="btn btn-lg btn-default pull-right">Export csv</button>
+   
+   {% endif %}
+
+    <div class="box-body table-responsive no-padding">
+
+    <table id="example2" class="table table-bordered table-striped table-hover sonata-ba-list" role="grid" aria-describedby="example2_info">
+                <thead>
+                <tr role="row">
+                    <th></th>
+                    <th>Client</th>
+                    <th>Telephone</th>
+                    <th>C. client création</th>
+                    <th>total</th>
+                    <th>Code promos</th>
+                        <th>Code  parrainage</th>
+                    <th>Réduction</th>
+                    <th>Prix avant</th>
+                    <th>Date cmd</th>
+                    <th>centre</th>
+                    <th>activité</th>
+                    <th>date activité</th>
+                    <th>cause</th>
+                    <th>NbreTicket</th>
+                    <th>statut</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+
+                    {% set reduce=order.activity.reduce %}
+                    {% set nbreTicket=0 %}
+               {% if reduce<20 %}
+                {% set price=order.activity.price-((order.activity.price*order.activity.reduce)/100) %}
+                   {% elseif reduce>=20 %}
+                {% set price=order.activity.price-((order.activity.price*(order.activity.reduce-10))/100) %}
+                {% endif %}
+                    <tr class="odd">
+                     <td class="dtr-control sorting_1" tabindex="0">
+                        {{ order.id }}
+                    </td>
+                    <td class="dtr-control sorting_1" tabindex="0">
+                        {{ order.client.firstname }} {{ order.client.lastname }}
+                    </td>
+                    <td>{{ order.client.phone }}</td>
+                    <td>{{ order.client.createdAt|date('d-m-Y') }}</td>
+
+                        <td>{{ order.total }}</td>
+                        <td>
+                        {% if order.codePromos!='' %}
+                            {{ order.codePromos?order.codePromos:'' }}
+                        {% endif %}
+                         </td>
+                          <td>
+                        {% if order.codeParrainage!='' %}
+                              {{ order.codeParrainage?order.codeParrainage:'' }}
+                        {% endif %}
+
+                        </td>
+                        <td>
+
+{% if order.codePromos!='' %}
+                        {{ order.codePromos?sponsor.byName(order.codePromos)?sponsor.byName(order.codePromos).getReduce()|round(2):0:0}}
+{% endif %}
+
+{% if order.codeParrainage!='' %}
+                        5.00
+{% endif %}
+
+{% if order.codePromos=='' and order.codeParrainage=='' %}
+    0
+{% endif %}
+
+
+                        </td>
+                        <td>{{ (price|round(2))}}</td>
+                    <td>{{ order.createdAt|date('d-m-Y') }}</td>
+                    <td>{{ order.activity.centre.partenaire.nomStructure }}</td>
+                    <td>{{ order.activity.name }}</td>
+                    <td>{{ order.activity.date|date('d-m-Y') }}</td>
+                    <td>{{ order.cause }}</td>
+                    <td>
+                    {% for detail in order.details %}
+                        {% set nbreTicket=nbreTicket+1 %}
+
+                        {% if detail.canceled==1 %}
+                        {% set nbreTicket=nbreTicket-1 %}
+
+                        {% endif %}
+                    {% endfor %}
+                    {{ nbreTicket }}
+
+                    </td>
+                    <td>
+                        {% if order.status==-1 %} <span class="badge badge-primary">annulé</span> {% endif %}
+                        {% if order.status==1 %} <span class="badge badge-primary">  en attente</span> {% endif %}
+                        {% if order.status==2 %} <span class="badge badge-primary"> non confirmé</span> {% endif %}
+                        {% if order.status==3 %} <span class="badge badge-primary"> annulé</span> {% endif %}
+                        {% if order.status==5 %} <span class="badge badge-primary"> non confirmé</span> {% endif %}
+                        {% if order.status==6 and order.activity.date|date('Y-m-d')  <  'now'|date('Y-m-d') %} <span class="badge badge-primary"> realisé</span> {% endif %}
+                        {% if order.status==6 and order.activity.date|date('Y-m-d') ==  'now'|date('Y-m-d') and order.activity.hTo|date('H:i') < 'now'|date('H:i') %} <span class="badge badge-primary"> realisé</span> {% endif %}
+                        {% if order.status==6 and order.activity.date|date('Y-m-d') ==  'now'|date('Y-m-d') and order.activity.hTo|date('H:i') >= 'now'|date('H:i') %} <span class="badge badge-primary"> confirmé</span> {% endif %}
+                        {% if order.status==6 and order.activity.date|date('Y-m-d') > 'now'|date('Y-m-d') %} <span class="badge badge-primary"> confirmé</span> {% endif %}
+                    </td>
+                    <td>
+                        {% if order.status==0 %}
+                            <a href="/admin/product-statistics/accepter/{{ order.id }}" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i></a>
+                            <a data-toggle="modal" data-target="#exampleModal" onclick="getinfoorder('{{ order.id }}')" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                        {% endif %}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+                <tfoot>
+                <tr role="row">
+
+                    <th></th>
+                    <th>Client</th>
+                    <th>Telephone</th>
+                    <th>C. client création</th>
+                    <th>total</th>
+                    <th>Code promos</th>
+                       <th>Code parrainage</th>
+                    <th>Réduction</th>
+                    <th>Prix avant</th>
+                    <th>Date cmd</th>
+                    <th>centre</th>
+                    <th>activité</th>
+                    <th>date activité</th>
+                    <th>cause</th>
+                    <th>NbreTicket</th>
+                    <th>statut</th>
+                </tr>
+
+                </tfoot>
+            </table>
+            <div style="text-align:right">
+                {{ knp_pagination_render(orders) }}
+            </div>
+        
+        </div></div></div></div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form method="post" action="/admin/product-statistics/refuser">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Refuser</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="order" class="form-control" name="order"/>
+                    <input placeholder="cause" type="text" class="form-control" name="cause"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">valider</button>
+                </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+    <script>
+    
+        $('#start').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'dd-mm-yyyy',
+        });
+        $('#end').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'dd-mm-yyyy',
+        });
+        function getinfoorder(id)
+        {
+            $('#order').val(id);
+        }
+
+        function formarDate(date)
+        {
+        return date.split('-')[2]+'-'+date.split('-')[1]+'-'+date.split('-')[0];
+        }
+
+        function csvFile()
+        {
+
+        var start=formarDate($('#start').val());
+        var end=formarDate($('#end').val());
+
+
+
+
+        var getUrl = window.location;
+            var baseUrl = getUrl .protocol + "//" + getUrl.host;
+            $.ajax({
+
+                url: baseUrl + '/admin/product-statistics/exportCsv',
+                method: 'POST',
+                data: {start:start,end:end},
+                success: function (response) {
+                if(response.status=='ok')
+                {
+                               window.location=response.url;
+
+                }
+                else
+                {
+                alert('pas de zip');
+                }
+
+                }
+            });
+            
+
+        }
+    </script>
+{% endblock %}

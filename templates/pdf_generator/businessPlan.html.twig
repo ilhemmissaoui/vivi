@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+		<style>
+			.page_break {
+				page-break-after: always
+			}
+
+
+			.card {
+
+				border-radius: 10px;
+				padding: 10px;
+				width: 28%;
+				display: inline-block;
+				margin-right: 2%
+			}
+			.card-item-name {
+				padding: 10px;
+				border-radius: 10px;
+			}
+			.card-item {
+				margin: 0 20px;
+
+				padding: 10px 0;
+			}
+			.card-item-info {
+				padding: 5px 0;
+			}
+
+			.card-item-info {
+				padding: 5px 0;
+			}
+
+			.HistoireEquipe .card {
+				border: 1px solid orange;
+			}
+
+			.HistoireEquipe .card-item-name {
+				background: #f7d5b1;
+				color: #ff8500;
+			}
+
+			.HistoireEquipe .card-item {
+				border-bottom: 0.5px solid orange;
+			}
+
+			.HistoireEquipe .card-footer {
+				background: none;
+				border: 0;
+				padding: 10px 20px;
+			}
+
+
+			.HistoireEquipe .bar-title {
+				text-align: center;
+				background: orange;
+				padding: 20px;
+				border-radius: 15px;
+				color: #fff;
+				font-size: 20px;
+				font-weight: 900;
+				margin: 50px 0;
+
+			}
+
+
+			.MARCHE-CONCURRENCE .card {
+				border: 0.3px solid #b19cd9;
+			}
+
+			.MARCHE-CONCURRENCE .card-item-name {
+				background: rgba(161, 156, 217, 0.25);
+			}
+
+			.MARCHE-CONCURRENCE .card-item {
+				border-bottom: 0 solid rgba(161, 156, 217, 0.25);
+			}
+
+			.MARCHE-CONCURRENCE .bar-title {
+				text-align: center;
+				background: #352853;
+				padding: 20px;
+				border-radius: 15px;
+				color: #fff;
+				font-size: 20px;
+				font-weight: 900;
+				margin: 100px 0;
+			}
+
+			.notre-solution .bar-title {
+				text-align: center;
+				background: #f4b25f;
+				padding: 20px;
+				border-radius: 15px;
+				color: #fff;
+				font-size: 20px;
+				font-weight: 900;
+				margin: 50px 0;
+
+			}
+			.notre-solution .card-solution {
+				border-radius: 12px;
+				border: 1px solid #f4b25f;
+				margin-bottom: 1.25rem;
+				padding: 0.5rem;
+				position: relative;
+				height: 700px;
+				background-color: #F2F4FC;
+			}
+			.notre-solution .card-solution-name {
+				text-align: center;
+				font-size: 30px;
+				font-weight: 900;
+				color: #FFD700;
+				margin: 15px 0;
+
+			}
+			.notre-solution .card-solution-item {
+				margin: 35px 1.25rem;
+				border: 2px solid #FFD700;
+				border-radius: 15px;
+				padding: 20px;
+				background-color: #fff;
+
+			}
+			.notre-solution .solution-block {
+				margin: 0 10%;
+			}
+
+			.vision-startegie .bar-title {
+				text-align: center;
+				background: #fc2e53;
+				padding: 20px;
+				border-radius: 15px;
+				color: #fff;
+				font-size: 20px;
+				font-weight: 900;
+				margin: 50px 0;
+
+			}
+
+			.vision-startegie .table-title {
+				text-align: center;
+				font-size: 1.125rem;
+				font-weight: bold;
+				vertical-align: middle;
+			}
+			.vision-startegie .TableStyle {
+				width: 80%;
+
+				margin: auto;
+				flex-shrink: 0;
+				border-radius: 10px;
+				border: 1px solid #fce6e9;
+				background: #fff;
+			}
+			.vision-startegie .TableRowStyle {
+				height: 30%;
+				text-align: center;
+				align-items: center;
+				color: #595959;
+				font-family: "Roboto";
+				font-size: 13px;
+				font-style: normal;
+				font-weight: 500;
+				line-height: 100%;
+				letter-spacing: 0.17px;
+				border-radius: 10px 10px 0 0;
+				background: #ffe7e761;
+				width: 100%;
+			}
+			.vision-startegie .TableRowStyle2 {
+				text-align: center;
+				align-items: center;
+				color: #595959;
+				font-family: "Roboto";
+				font-size: 13px;
+				font-style: normal;
+				font-weight: 500;
+				line-height: 100%;
+				letter-spacing: 0.17px;
+				border-radius: 10px 10px 0 0;
+				width: 100%;
+			}
+			.vision-startegie td {
+				font-size: 20px;
+				padding: 30px;
+
+			}
+
+			.vision-startegie th {
+				font-size: 20px;
+				padding: 30px;
+			}
+
+
+			.FINANCEMENTCHARGES .bar-title {
+				text-align: center;
+				background: #514495;
+				padding: 20px;
+				border-radius: 15px;
+				color: #fff;
+				font-size: 20px;
+				font-weight: 900;
+				margin: 50px 0;
+
+			}
+
+			.FINANCEMENTCHARGES table {
+				width: 1200px;
+				border-collapse: collapse;
+				margin: 50px auto;
+			}
+
+		 
+
+			.FINANCEMENTCHARGES th {
+				background: #514495;
+				color: white;
+				font-weight: bold;
+			}
+
+			.FINANCEMENTCHARGES td,
+			.FINANCEMENTCHARGES th {
+				padding: 10px;
+				border-left: 0px solid #000;
+				border-right: 0px solid #000;
+
+				border-bottom: 1px solid #000;
+				text-align: center;
+				font-size: 18px;
+			}
+			.FINANCEMENTCHARGES .tableau-financiers-titre {
+				box-shadow: 2px 2px 11px 2px #B3B6B7;
+				padding: 20px;
+				border: 2px solid #B3B6B7;
+				border-radius: 10px;
+				text-align: center;
+				font-size: 20px;
+				font-weight: 600;
+			}
+
+			.POSITIONNEMENT-CONCURRENTIEL .bar-title {
+				text-align: center;
+				background: #f7d44b;
+				padding: 20px;
+				border-radius: 15px;
+				color: #fff;
+				font-size: 20px;
+				font-weight: 900;
+				margin: 50px 0;
+			}
+
+.POSITIONNEMENT-CONCURRENTIEL .table-title {
+				text-align: center;
+				font-size: 1.125rem;
+				font-weight: bold;
+				vertical-align: middle;
+			}
+			.POSITIONNEMENT-CONCURRENTIEL .TableStyle {
+				width: 80%;
+
+				margin: auto;
+				flex-shrink: 0;
+				border-radius: 10px;
+				border: 1px solid #fce6e9;
+				background: #fff;
+			}
+			.POSITIONNEMENT-CONCURRENTIEL .TableRowStyle {
+				height: 30%;
+				text-align: center;
+				align-items: center;
+				color: #595959;
+				font-family: "Roboto";
+				font-size: 13px;
+				font-style: normal;
+				font-weight: 500;
+				line-height: 100%;
+				letter-spacing: 0.17px;
+				border-radius: 10px 10px 0 0;
+				background: #ffeab7;
+				width: 100%;
+			}
+			.POSITIONNEMENT-CONCURRENTIEL .TableRowStyle2 {
+				text-align: center;
+				align-items: center;
+				color: #595959;
+				font-family: "Roboto";
+				font-size: 13px;
+				font-style: normal;
+				font-weight: 500;
+				line-height: 100%;
+				letter-spacing: 0.17px;
+				border-radius: 10px 10px 0 0;
+				width: 100%;
+			}
+			.POSITIONNEMENT-CONCURRENTIEL td {
+				font-size: 20px;
+				padding: 30px;
+
+			}
+
+			.POSITIONNEMENT-CONCURRENTIEL th {
+				font-size: 20px;
+				padding: 30px;
+			}
+		.FINANCEMENTCHARGES .tdName{
+			text-align: left;
+		}
+		.FINANCEMENTCHARGES .backgroundClass{
+			background:#a590cf78;
+		}
+
+		.backgroundClass td,
+			.backgroundClass th {
+				border-left: 0px solid #000;
+				border-right: 0px solid #000;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- Histoire & Equipe card : Card membre -->
+		<div class="HistoireEquipe">
+			<div class="bar-title">
+				<div>HISTOIRE & ÉQUIPE</div>
+			</div>
+
+			{% for equipe in equipes %}
+
+				<div class="card">
+					<div class="card-title">
+						{% if equipe["username"] is null or equipe["username"] ==""  %}
+							{% set usernameEquipe = equipe["SalarieUserName"]  %}
+						{% else %}
+
+							{% set usernameEquipe = equipe["username"]  %}
+
+						{% endif %}
+						<div class="card-item-name">{{usernameEquipe}}</div>
+					</div>
+					<div class="card-item">
+						{% if equipe["email"] is null or equipe["email"] ==""  %}
+							{% set emailEquipe = equipe["SalarieEmail"]  %}
+						{% else %}
+							{% set emailEquipe = equipe["email"]  %}
+
+						{% endif %}
+						<div class="card-item-info">{{emailEquipe}}</div>
+						<div class="card-item-info">{{equipe["role"]}}</div>
+						<div class="card-item-info">{{equipe["diplome"]}}</div>
+						<div class="card-item-info">{{equipe["dateCreation"]| date("Y-m-d")}}</div>
+					</div>
+					<div class="card-footer">
+						disc
+					</div>
+				</div>
+			{% endfor %}
+
+		</div>
+
+		<!--MARCHÉ & CONCURRENCE : Card concurrent -->
+		<div class="page_break"></div>
+
+		<div class="MARCHE-CONCURRENCE">
+			<div class="bar-title">
+				<div>MARCHÉ & CONCURRENCE</div>
+			</div>
+			{% for societe in societesListe %}
+
+				<div class="card">
+					<div class="card-title">
+						<div class="card-item-name">
+							{{societe["name"]}}
+						</div>
+					</div>
+					<div class="card-item">
+						<div class="card-item-info">Points forts :
+							{{societe["pointFort"]}}
+
+						</div>
+						<div class="card-item-info">
+							Points Faibles :
+							{{societe["pointFaible"]}}
+						</div>
+						<div class="card-item-info">
+							Direct/Indirect :
+							{{societe["directIndirect"]}}
+						</div>
+						<div class="card-item-info">
+							Taille :
+
+							{{societe["taille"]}}
+						</div>
+						<div class="card-item-info">
+							Chiffres d'affaire :
+							{{societe["CA"]}}
+						</div>
+						<div class="card-item-info">
+							Effectif :
+							{{societe["effectif"]}}
+						</div>
+
+					</div>
+
+				</div>
+			{% endfor %}
+
+		</div>
+<!-- ******************************POSITIONNEMENT-CONCURRENTIEL***************************************** -->
+		<div class="page_break"></div>
+		<div class="POSITIONNEMENT-CONCURRENTIEL">
+			<div class="bar-title">
+				<div>POSITIONNEMENT CONCURRENTIEL</div>
+			</div>
+
+			<table class="TableStyle">
+				<thead>
+					<tr class="TableRowStyle">
+						<td> </td>
+						{% for concurrent in concurrents %}
+							<td>{{concurrent["name"]}}</td>
+
+						{% endfor %}
+						
+					</tr>
+				</thead>
+
+				<tbody>
+					{% for item in besoinListe %}
+						<tr class="TableRowStyle2">
+							<td>{{item["name"]}}</td>	
+							{% for concurrent in concurrents %}
+								<td>{{conncurentValue[item["id"]][concurrent["id"]]}}</td>	
+						{% endfor %}										
+						</tr>
+					{% endfor %}
+							
+					 
+
+				</tbody>
+			</table>
+
+		</div>
+		<!--Notre solution-->
+
+		<div class="page_break"></div>
+
+		<div class="notre-solution">
+
+			{% for solution in solutions %}
+				<div class="bar-title">
+					<div>NOTRE SOLUTION</div>
+				</div>
+				<div class="solution-block">
+
+					<div class="card-solution">
+						<div class="card-solution-name">{{solution["name"]}}</div>
+
+						<div class="card-solution-item">
+							{% for annee in solution["listeAnnee"] %}
+								{{annee["annee"]}}
+							{% endfor %}
+							{% if solution["listeAnnee"] | length == 0%}
+								Pas d'année
+							{% endif %}
+						</div>
+						<div class="card-solution-item">
+							<div>Innovation :</div>
+							<div>
+								{{solution["innovation"]}}
+							</div>
+						</div>
+						<div class="card-solution-item">
+							<div>Source de revenus :</div>
+							<div>
+								{% for revenus in solution["chiffreAffaireListe"] %}
+									<div>{{revenus["sommeVente"]}}
+									</div>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="card-solution-item">
+							<div>Points forts :</div>
+							<div>{{solution["pointFort"]}}</div>
+						</div>
+						<div class="card-solution-item">
+							<div>Description technique :</div>
+							<div>{{solution["descTechnique"]}}</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="page_break"></div>
+			{% endfor %}
+		</div>
+
+		<!--VISION & STRATÉGIE-->
+		<div class="vision-startegie">
+			<div class="bar-title">
+				<div>VISION & STRATÉGIE</div>
+			</div>
+
+			<table class="TableStyle">
+				<thead>
+					<tr class="TableRowStyle">
+						<th colspan="7">Toutes les visions</th>
+					</tr>
+					<tr class="TableRowStyle">
+						<td>Année</td>
+						<td>Date de Début</td>
+						<td>Date de Fin</td>
+						<td>Action</td>
+						<td>Cible</td>
+						<td>Description</td>
+						<td>Coût</td>
+					</tr>
+				</thead>
+
+				<tbody>
+					{% for visionStratigiquearray in visionStratigiques  %}
+						{% for visionStratigique in visionStratigiquearray["VisionStrategiesListe"] %}
+
+							<tr class="TableRowStyle2">
+								<td>{{visionStratigique['annee']}}</td>
+								<td>{{visionStratigique['dateVisionStrategies']| date('Y-m-d')}}</td>
+								<td>{{visionStratigique['actionVision']['actionDateFin']}}</td>
+								<td>{{visionStratigique['actionVision']['action']}}</td>
+								<td>{{visionStratigique['actionVision']['cible']}}</td>
+								<td>{{visionStratigique['objectifVision']['description']}}</td>
+								<td>{{visionStratigique['coutVision']['cout']}}</td>
+							</tr>
+						{% endfor %}
+					{% endfor %}
+
+				</tbody>
+			</table>
+		</div>
+		<div class="page_break"></div>
+
+		<div class="FINANCEMENTCHARGES">
+			<div class="bar-title">
+				<div>FINANCEMENT & CHARGES</div>
+			</div>
+			<!-- ********************COMPTE DE RÉSULTAT********************************** !-->
+
+			<div class="tableau-financiers-titre">COMPTE DE RÉSULTAT</div>
+			<table>
+				<thead>
+					<tr>
+						<th></th>
+						{% for ProjetAnnee in ProjetAnnees %}
+							<th>{{ProjetAnnee.annee}}</th>
+
+						{% endfor %}
+
+					</tr>
+				</thead>
+				<tbody>
+					{% for key, compteResultat in compteResultats %}
+
+						{% set backgroundClass = "" %}
+
+						{% if key in ["Total des produits d'exploitation","Total des charges d'exploitation","Résultat d'exploitation","Résultat courant avant impôts","Résultat de l'exercice"] %}
+							{% set backgroundClass = "backgroundClass" %}							
+						{% endif %}
+
+						<tr class="{{backgroundClass}}">
+							<td class="tdName">{{key}}</td>
+							{% for item in compteResultat  %}
+								<td>{{item}}</td>
+							{% endfor %}
+						</tr>
+					{% endfor %}
+
+				</tbody>
+			</table>
+			<div class="page_break"></div>
+
+			<div class="bar-title">
+				<div>FINANCEMENT & CHARGES</div>
+			</div>
+
+
+			<!-- ********************PLAN DE FINANCEMENT********************************** !-->
+			<div class="tableau-financiers-titre">PLAN DE FINANCEMENT</div>
+
+			<table>
+				<thead>
+					<tr>
+						<th></th>
+						<th>
+							Initial</th>
+
+						{% for ProjetAnnee in ProjetAnnees %}
+							<th>{{ProjetAnnee.annee}}</th>
+
+						{% endfor %}
+
+					</tr>
+				</thead>
+				<tbody>
+					{% for key, PlanFinancement in PlanFinancements %}
+					{% set backgroundClass = "" %}
+						
+						{% if key in ["Variation du besoin en fonds de roulement","Total des besoins","Total des ressources","Variation des trésorerie","Solde de trésorerie"] %}
+							{% set backgroundClass = "backgroundClass" %}							
+						{% endif %}
+
+						<tr class="{{backgroundClass}}">
+							<td class="tdName">{{key}}</td>
+							{% for item in PlanFinancement  %}
+								{% if key  not in ["BESOIN","RESSOURCES"] %}
+										
+									{% if item is iterable  %}
+										<td>{{item["valeur"]}}</td>
+									{% else %}
+										<td>{{item}}</td>
+									{% endif %}
+								{% else %}
+									<td></td>
+								{% endif %}
+
+							{% endfor %}
+						</tr>
+					{% endfor %}
+
+				</tbody>
+			</table>
+
+			<!-- ********************BILAN********************************** !-->
+
+			{% set actifTitle ={
+				"Investissementincorporels":"Investissement incorporels",
+				"Investissementcorporels":"Investissement corporels",
+				"Investissementfinanciers":"Investissement financiers",
+				"ToltalInvestisements":"Total de l'investissement",
+				"ActivCirculant":"Actif circulant",
+				"stoks":"stocks",
+				"clients":"clients",
+				"CreanceFiscale":"Créances fiscales",
+				"CreanceAociales":"Créances sociales",
+				"Treoseries":"Trésorerie",
+				"TotalActifCercul":"Total de l'actif circulant",
+				"TotalActif":"Total Actif",
+				"net":"net",
+				"brut":"brut",
+				"amort":"amort"
+			} %}
+
+			{% set passifName ={
+				"Investissementincorporels":"Capitale",
+				"Investissementcorporels":"ReserveReportNouveau",
+				"Investissementfinanciers":"ResultatExercice",
+				"ToltalInvestisements":"TotalCapiteauxPropres",
+				"ActivCirculant":"DETTES",
+				"stoks":"Emprunts",
+				"clients":"compteCaurentAssociés",
+				"CreanceFiscale":"fournisseurs",
+				"CreanceAociales":"Dettesfiscales",
+				"Treoseries":"Dettesociales",
+				"TotalActifCercul":"Totaldettes",
+				"TotalActif":"TOTALPASSIF"
+			} %}
+
+			{% set PassifTitle ={
+				"Capitale":"Capital",
+				"ReserveReportNouveau":"Réserve et report à nouveau	",
+				"ResultatExercice":"Résultat de l'exercice",
+		 		"TotalCapiteauxPropres":"Total des capitaux propres",
+		 		"DETTES":"DETTES",
+		 		"Emprunts":"Emprunts",
+		 		"compteCaurentAssociés":"Comptes courant d'associés",
+		 		"fournisseurs":"Fournisseurs",
+		 		"Dettesfiscales":"Dettes fiscales",
+		 		"Dettesociales":"Dettes sociales",
+		 		"Totaldettes":"Total des Dettes",
+		 		"TOTALPASSIF":"Total passif",
+	
+			} %}
+			{% for key,bilan in bilans %}
+				<div class="page_break"></div>
+
+				<div class="bar-title">
+					<div>FINANCEMENT & CHARGES</div>
+				</div>
+				<div class="tableau-financiers-titre">Bilan</div>
+
+				<table class="TableStyle">
+					<thead>
+						<tr class="TableRowStyle">
+							<th colspan="6">{{key}}</th>
+						</tr>
+						<tr class="TableRowStyle">
+							<td  class="tdName">Actif</td>
+							<td>Brut</td>
+							<td>Amort</td>
+							<td>Net</td>
+							<td>Passif</td>
+							<td>Net</td>
+						</tr>
+
+						<tr class="backgroundClass">
+							<td  class="tdName">Actif immobilsé
+							</td>
+							<td></td>
+
+							<td></td>
+							<td></td>
+							<td>Capitaux propres</td>
+							<td></td>
+						</tr>
+					</thead>
+
+					<tbody>
+						{% set actifs =  bilan['actif'] %}
+						{% set passifs =  bilan['passif'] %}
+
+						{% for keyInvs,investissements in actifs['investissementListe'] %}
+		
+							{% set backgroundClass = "" %}
+
+							{% if key in ["ActivCirculant","TotalActifCercul","TotalActif"] %}
+								{% set backgroundClass = "backgroundClass" %}							
+							{% endif %}
+
+							<tr class=" {{backgroundClass}}">
+								<td class="tdName">{{actifTitle[keyInvs]}}</td>
+								{% for investissement in investissements %}
+									<td>{{investissement}}</td>
+								{% endfor %}
+								{% if keyInvs  in passifName|keys %}
+									<td>{{PassifTitle[passifName[keyInvs]]}}</td>
+									{% if passifs[passifName[keyInvs]] is iterable  %}
+										<td>{{passifs[passifName[keyInvs]]["valeur"]}}</td>
+									{% else %}
+										<td>{{passifs[passifName[keyInvs]]}}</td>
+
+									{% endif %}
+								{% endif %}
+
+							</tr>
+						{% endfor %}
+		
+
+						<tr class="">
+							<td  class="tdName">{{actifTitle['ToltalInvestisements']}}</td>
+							{% for keyInvs,investissement in  actifs['ToltalInvestisements'] %}
+								<td >{{investissement}}</td>
+							{% endfor %}
+							{% if 'ToltalInvestisements'  in passifName|keys %}
+								<td>{{PassifTitle[passifName['ToltalInvestisements']]}}</td>
+								{% if passifs[passifName['ToltalInvestisements']] is iterable  %}
+									<td>{{passifs[passifName['ToltalInvestisements']]["valeur"]}}</td>
+								{% else %}
+									<td>{{passifs[passifName['ToltalInvestisements']]}}</td>
+
+								{% endif %}
+							{% endif %}
+
+						</tr>
+
+						<tr class="backgroundClass">
+							<td  class="tdName">{{actifTitle['ActivCirculant']}}</td>
+
+							<td></td>
+							<td></td>
+							<td></td>
+
+							{% if 'ActivCirculant'  in passifName|keys %}
+								<td>{{PassifTitle[passifName['ActivCirculant']]}}</td>
+								{% if passifs[passifName['ActivCirculant']] is iterable  %}
+									<td>{{passifs[passifName['ActivCirculant']]["valeur"]}}</td>
+								{% else %}
+									<td>{{passifs[passifName['ActivCirculant']]}}</td>
+
+								{% endif %}
+							{% endif %}
+
+						</tr>
+
+
+						<tr class="TableRowStyle2">
+							<td  class="tdName">{{actifTitle['stoks']}}</td>
+
+							<td>{{actifs['stoks']["value"]}}</td>
+							<td>0</td>
+							<td>0</td>
+
+							{% if 'stoks'  in passifName|keys %}
+
+								<td>{{PassifTitle[passifName['stoks']]}}</td>
+
+								{% if passifs[passifName['stoks']] is iterable  %}
+									<td>{{passifs[passifName['stoks']]["valeur"]}}</td>
+								{% else %}
+									<td>{{passifs[passifName['stoks']]}}</td>
+
+								{% endif %}
+							{% endif %}
+
+						</tr>
+
+						<tr class="TableRowStyle2">
+							<td  class="tdName">{{actifTitle['clients']}}</td>
+
+							<td>{{actifs['clients']["value"]}}</td>
+							<td>0</td>
+							<td>0</td>
+
+							{% if 'clients'  in passifName|keys %}
+
+								<td>{{PassifTitle[passifName['clients']]}}</td>
+
+								{% if passifs[passifName['clients']] is iterable  %}
+									<td>{{passifs[passifName['clients']]["valeur"]}}</td>
+								{% else %}
+									<td>{{passifs[passifName['clients']]}}</td>
+
+								{% endif %}
+							{% endif %}
+
+						</tr>
+
+						<tr class="TableRowStyle2">
+							<td  class="tdName">{{actifTitle['CreanceFiscale']}}</td>
+
+							<td>{{actifs['CreanceFiscale']}}</td>
+							<td>0</td>
+							<td>0</td>
+
+							{% if 'CreanceFiscale'  in passifName|keys %}
+
+								<td>{{PassifTitle[passifName['CreanceFiscale']]}}</td>
+
+								{% if passifs[passifName['CreanceFiscale']] is iterable  %}
+									<td>{{passifs[passifName['CreanceFiscale']]["valeur"]}}</td>
+								{% else %}
+									<td>{{passifs[passifName['CreanceFiscale']]}}</td>
+
+								{% endif %}
+							{% endif %}
+
+						</tr>
+
+						<tr class="TableRowStyle2">
+							<td  class="tdName">{{actifTitle['CreanceAociales']}}</td>
+
+							<td>{{actifs['CreanceAociales']}}</td>
+							<td>0</td>
+							<td>0</td>
+
+							{% if 'CreanceAociales'  in passifName|keys %}
+
+								<td>{{PassifTitle[passifName['CreanceAociales']]}}</td>
+
+								{% if passifs[passifName['CreanceAociales']] is iterable  %}
+									<td>{{passifs[passifName['CreanceAociales']]["valeur"]}}</td>
+								{% else %}
+									<td>{{passifs[passifName['CreanceAociales']]}}</td>
+
+								{% endif %}
+							{% endif %}
+
+						</tr>
+
+						<tr class="">
+							<td  class="tdName">{{actifTitle['Treoseries']}}</td>
+							{% for keyInvs,investissement in  actifs['Treoseries'] %}
+								<td>{{investissement}}</td>
+							{% endfor %}
+							{% if 'Treoseries'  in passifName|keys %}
+								<td>{{PassifTitle[passifName['Treoseries']]}}</td>
+								{% if passifs[passifName['Treoseries']] is iterable  %}
+									<td>{{passifs[passifName['Treoseries']]["valeur"]}}</td>
+								{% else %}
+									<td>{{passifs[passifName['Treoseries']]}}</td>
+
+								{% endif %}
+							{% endif %}
+
+						</tr>
+
+						<tr class="backgroundClass">
+							<td  class="tdName">{{actifTitle['TotalActifCercul']}}</td>
+
+							<td>{{actifs['TotalActifCercul']}}</td>
+							<td>0</td>
+							<td>0</td>
+
+							{% if 'TotalActifCercul'  in passifName|keys %}
+
+								<td>{{PassifTitle[passifName['TotalActifCercul']]}}</td>
+
+								{% if passifs[passifName['TotalActifCercul']] is iterable  %}
+									<td>{{passifs[passifName['TotalActifCercul']]["valeur"]}}</td>
+								{% else %}
+									<td>{{passifs[passifName['TotalActifCercul']]}}</td>
+
+								{% endif %}
+							{% endif %}
+						</tr>
+					</tbody>
+				</tr>
+
+				<tr class="backgroundClass">
+					<td  class="tdName">{{actifTitle['TotalActif']}}</td>
+
+					<td>{{actifs['TotalActif']}}</td>
+					<td>0</td>
+					<td>0</td>
+
+					{% if 'TotalActif'  in passifName|keys %}
+
+						<td>{{PassifTitle[passifName['TotalActif']]}}</td>
+
+						{% if passifs[passifName['TotalActif']] is iterable  %}
+							<td>{{passifs[passifName['TotalActif']]["valeur"]}}</td>
+						{% else %}
+							<td>{{passifs[passifName['TotalActif']]}}</td>
+
+						{% endif %}
+					{% endif %}
+				</tr>
+			</tbody>
+		</table>
+	{% endfor %}
+
+	<!-- ******************** TRÉSORERIE ********************************** !-->
+
+	{% for key,Tresorerie in Tresoreries %}
+		<div class="page_break"></div>
+		<div class="bar-title">
+			<div>FINANCEMENT & CHARGES</div>
+		</div>
+		<div class="tableau-financiers-titre">TRÉSORERIE</div>
+
+		<table>
+			<thead>
+				<tr class="TableRowStyle">
+					<th colspan="13">{{key}}</th>
+				</tr>
+				<tr>
+					<th></th>
+					<th>Jan</th>
+					<th>Frv</th>
+					<th>Mar</th>
+					<th>Avr</th>
+					<th>Mai</th>
+					<th>Juin</th>
+					<th>Juil</th>
+					<th>Aou</th>
+					<th>Sept</th>
+					<th>Oct</th>
+					<th>Nov</th>
+					<th>Dece</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for tresoKey,treso in Tresorerie %}
+					{% set backgroundClass = "" %}
+
+					{% if tresoKey in ["Encaissements","Décaissements","Variation","Solde"] %}
+						{% set backgroundClass = "backgroundClass" %}							
+					{% endif %}
+					<tr class="{{backgroundClass}}">
+						<td class="tdName">{{tresoKey}}</td>
+						{% for  month,item in treso %}
+							{% if loop.index <= 12  %}
+								<td>{{item}}</td>
+							{% endif %}
+						{% endfor %}
+					</tr>
+				{% endfor %}
+
+			</tbody>
+		</table>
+	{% endfor %}
+ </div></body></html>

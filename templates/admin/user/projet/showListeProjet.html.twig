@@ -1,0 +1,13 @@
+{% extends '@SonataAdmin/CRUD/base_show_field.html.twig' %}
+{% block field %}
+
+	{% set projets = object.instance.projets %}
+	<div>
+        {% for item in projets %}
+            <div>
+             <a href={{path('app_pdf_generator',{'idProjet':item.id})}} target="_blank" >{{item.name}}</a>
+            
+            </div>
+        {% endfor %}
+	</div>
+{% endblock %}

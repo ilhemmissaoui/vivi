@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTDXHTML1.0Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+
+
+		<style type="text/css">
+			p {
+				text-align: justify;
+				color: #000058;
+				font-size: 16px;
+				font-family: Arial;
+			
+
+			}
+			.email-body {
+				text-align: center;
+				margin: auto;
+				width: 70%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="email-body">
+			<div>
+				<img lass="img-rsp" style="width:20%;text-align:left;margin:10px 0" src="http://vivitool-nehos-develop.itside.co/build/images/vivitool-logo-cae15a82e302bab5728e.png" alt="logo-toog.png">
+
+			</div>
+
+			<div>
+				<p style="
+    font-weight: bold;
+">
+					Bonjour {{user}},
+				</p>
+
+				<p>
+					Nous sommes ravis de vous inviter à vous inscrire sur la plateforme Vivitool.
+				</p>
+
+				<p style="
+    font-weight: bold;
+">
+					<a style="color:#F88B3B" href="{{ app.request.schemeAndHttpHost }}/registration">
+						Créer un compte</a>
+				</p>
+				<p>
+					Bienvenue sur Vivitool, et merci de faire partie de notre communauté !
+
+				</p>
+
+				<p style="
+    font-size: 12px;
+">
+					Cordialement,</p>
+				<p style="
+    font-size: 12px;
+">L'équipe de ViviTool
+				</p>
+			</div>
+		</div>
+
+	</body>
+</html>
